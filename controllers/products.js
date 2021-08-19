@@ -68,3 +68,20 @@ exports.getFiltered = async(req, res)=>{
         
     }
 }
+
+exports.searchTerm = async(req,res)=>{
+    try {
+        const searchResult = await Product.find({
+            $or:[
+                {name:{$regex: req.query.search, $options: "i"}},
+                {description:{$regex: req.query.search, $options: "i"}}
+            ]
+        })
+        if(searchResult.length==0) return res.status(200).json(errorMsg.doesnt_match)
+        else return res.status(200).json(searchResult)
+    } catch (error) {
+        return res.status(500).json(errorMsg.internal)
+
+        
+    }
+}

@@ -7,13 +7,18 @@ const { postNewProduct,
         updateProduct, 
         deleteProduct, 
         getOneProduct, 
-        getFiltered} = require('../controllers/products');
+        getFiltered,
+        searchTerm} = require('../controllers/products');
 
 
 router.get('/', getProducts);
 //filter product by area or warehouse by query
   //in query it can go both warehouse and area or either of them
 router.get('/filter', getFiltered)
+
+//search term by query using both name and description
+  //put ?search=termforsearch as params
+router.get('/search', searchTerm)
 
 
 router.post('/new', postNewProduct)
