@@ -24,7 +24,7 @@ exports.getAllWarehouses = async(req,res)=>{
 
 exports.getWarehouse = async(req,res)=>{
     try {
-        let warehouse= await Warehouse.findById(req.params.id)
+        let warehouse= await Warehouse.findById(req.params.id).populate('products.product')
         return res.status(200).json(warehouse)
     } catch (error) {
         return res.status(500).json(errorMsg.internal)        
