@@ -16,6 +16,11 @@ const warehouseSchema = mongoose.Schema({
     name        :   {type:String, required:true},
     address     :   {addressSchema},
     area        :   {type:String, required:true},
-    product     :   [productSchema],
+    products     :   [productSchema],
+},
+{ timestamps : { 
+    createdAt   : 'created_at',
+    updatedAt   : 'updated_at' 
+    }
 })
 module.exports = mongoose.model('warehouse', warehouseSchema, 'warehouses')
