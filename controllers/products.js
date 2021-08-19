@@ -1,4 +1,5 @@
 const Product = require('../models/products')
+const Warehouse = require('../models/warehouse')
 
 const errorMsg = require('../lib/messages').error
 const successMsg= require('../lib/messages').success
@@ -50,6 +51,20 @@ exports.deleteProduct = async(req,res) =>{
         res.status(200).json(deletedProduct)
     } catch (error) {
         res.status(500).json(errorMsg.internal)
+        
+    }
+}
+
+exports.getFiltered = async(req, res)=>{
+    try {
+        let filteredProduct = await Warehouse.find(req.query).populate('products.product')
+        const response= filteredProduct.map(docs=>{
+            return docs.products
+        })
+        return res.status(200).json(response)
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json(errorMsg.internal)
         
     }
 }
