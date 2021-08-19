@@ -3,8 +3,9 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 
-const productsRouter = require('./routes/products')
-const usersRouter = require('./routes/users');
+const productsRoute = require('./routes/products')
+const usersRoute = require('./routes/users');
+const warehouseRoute = require('./routes/warehouse')
 const port = process.env.PORT || 5000;
 const app = express();
 
@@ -32,8 +33,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api/products', productsRouter)
-app.use('/api/users', usersRouter);
+app.use('/api/products', productsRoute)
+app.use('/api/users', usersRoute);
+app.use('/api/warehouse', warehouseRoute )
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

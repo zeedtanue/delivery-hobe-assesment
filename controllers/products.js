@@ -7,7 +7,7 @@ const successMsg= require('../lib/messages').success
 exports.postNewProduct= async(req,res)=>{
     try {
         const newProduct = new Product(req.body)
-        const newProductData= await newProduct.save()
+        await newProduct.save()
 
         res.status(201).json(successMsg.product_created)
     } catch (error) {
