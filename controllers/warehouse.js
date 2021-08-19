@@ -30,3 +30,23 @@ exports.getWarehouse = async(req,res)=>{
         return res.status(500).json(errorMsg.internal)        
     }
 }
+
+exports.addProducts = async(req,res)=>{
+    try {
+         await Warehouse.updateOne(
+            {_id:req.params.warehouseID},
+            {
+                $push:{
+                    products:{
+                        product         :   req.params.productID,
+                        sourcing_price  :   req.body.sourcing_price,
+                        warehouse_stock :   req.body.warehouse_stock
+                    }
+                }
+            }
+        )
+        return res.status(201).json(successMsg.product_added)
+    } catch (error) {
+        return res.status(500).json(errorMsg.internal)          
+    }
+}
