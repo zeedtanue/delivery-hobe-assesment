@@ -20,3 +20,13 @@ exports.getProducts = async(req,res)=>{
         res.status(200).json(error)
     }
 }
+
+exports.updateProduct = async(req,res)=>{
+    try {
+        await Product.findOneAndUpdate(req.params.id, req.body)
+        res.status(200).json('product has been updated')
+    } catch (error) {
+        res.status(200).json(error)
+        
+    }
+}
