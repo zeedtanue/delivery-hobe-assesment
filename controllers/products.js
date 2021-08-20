@@ -5,6 +5,7 @@ const Order = require('../models/orders')
 const errorMsg = require('../lib/messages').error
 const successMsg= require('../lib/messages').success
 
+const mongoose = require('mongoose')
 
 exports.postNewProduct= async(req,res)=>{
     try {
@@ -86,11 +87,36 @@ exports.searchTerm = async(req,res)=>{
         
     }
 }
-
 exports.makeOrder = async(req,res)=>{
+    const warehouseID= req.params.warehouseID
+    const productID = req.params.productID
+    const body = req.body
     try {
+        const warehouse = await Warehouse.findById(warehouseID)
+        let product = {}
+        warehouse.products.forEach(element => {
+            if(element.product==productID){
+                product = element
+            }
+        });
+        if(warehouse==null) return res.status(400).json('invalid id')
+        if(product.stock_quantity<body.order_quantity) return res.status(400).json('not enough product')
+        let order = new Order({
+            product     :   productID,
+            warehouse   :   warehouseID,
+            address     :   body.address,
+            order_quantity: body.order_quantity
+        })
+            await order.save()
+            await Warehouse.updateOne(
+                {_id: req.params.warehouseID, "products.product":productID},
+                {$inc:{"products.$.stock_quantity":-body.order_quantity}}
+            )
+        return res.status(201).json(order)
+
         
     } catch (error) {
+        console.log(error)
         return res.status(500).json(errorMsg.internal)
         
     }

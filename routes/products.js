@@ -22,7 +22,7 @@ router.get('/filter', getFiltered)
 router.get('/search', searchTerm)
 
 
-router.post('/order/:warehouseID/:productID', makeOrder)
+router.post('/checkout/:warehouseID/:productID', makeOrder)
 
 router.post('/new', postNewProduct)
 router.get('/:id', getOneProduct)
