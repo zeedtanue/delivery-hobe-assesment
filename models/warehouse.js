@@ -9,14 +9,16 @@ const addressSchema = mongoose.Schema({
 const productSchema = mongoose.Schema({
     product         :   {type:mongoose.Schema.Types.ObjectId, ref:'product'},
     sourcing_price  :   {type:Number, default:0},
-    warehouse_stock :   {type:Boolean,default:true}
+    warehouse_stock :   {type:Boolean,default:true},
+    stock_quantity  :   {type:Number,default:1}
 })
 
 const warehouseSchema = mongoose.Schema({
     name        :   {type:String, required:true},
+    contact_info:   {type:Number},
     address     :   {addressSchema},
     area        :   {type:String, required:true},
-    products     :   [productSchema],
+    products    :   [productSchema],
 },
 { timestamps : { 
     createdAt   : 'created_at',

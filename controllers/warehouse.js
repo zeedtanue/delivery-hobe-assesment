@@ -14,7 +14,7 @@ exports.postWarehouse = async(req,res)=>{
 
 exports.getAllWarehouses = async(req,res)=>{
     try {
-        let warehouses = await Warehouse.find()
+        let warehouses = await Warehouse.find().populate('products.product')
         return res.status(200).json(warehouses)
     } catch (error) {
         return res.status(500).json(errorMsg.internal)
@@ -40,7 +40,8 @@ exports.addProducts = async(req,res)=>{
                     products:{
                         product         :   req.params.productID,
                         sourcing_price  :   req.body.sourcing_price,
-                        warehouse_stock :   req.body.warehouse_stock
+                        warehouse_stock :   req.body.warehouse_stock,
+                        stock_quantity  :   req.body.stock_quantity
                     }
                 }
             }
