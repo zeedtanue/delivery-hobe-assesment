@@ -1,12 +1,13 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const productsRoute = require('./routes/products')
+const usersRoute = require('./routes/users');
+const warehouseRoute = require('./routes/warehouse')
 const port = process.env.PORT || 5000;
-var app = express();
+const app = express();
 
 // load env configurations
 require('dotenv').config()
@@ -32,8 +33,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/api/products', productsRoute)
+app.use('/api/users', usersRoute);
+app.use('/api/warehouse', warehouseRoute )
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
