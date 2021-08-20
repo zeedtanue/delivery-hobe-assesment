@@ -8,7 +8,8 @@ const { postNewProduct,
         deleteProduct, 
         getOneProduct, 
         getFiltered,
-        searchTerm} = require('../controllers/products');
+        searchTerm,
+        makeOrder} = require('../controllers/products');
 
 
 router.get('/', getProducts);
@@ -20,6 +21,8 @@ router.get('/filter', getFiltered)
   //put ?search=termforsearch as params
 router.get('/search', searchTerm)
 
+
+router.post('/order/:warehouseID/:productID', makeOrder)
 
 router.post('/new', postNewProduct)
 router.get('/:id', getOneProduct)

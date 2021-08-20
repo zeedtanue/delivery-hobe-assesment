@@ -1,5 +1,6 @@
 const Product = require('../models/products')
 const Warehouse = require('../models/warehouse')
+const Order = require('../models/orders')
 
 const errorMsg = require('../lib/messages').error
 const successMsg= require('../lib/messages').success
@@ -57,7 +58,7 @@ exports.deleteProduct = async(req,res) =>{
 
 exports.getFiltered = async(req, res)=>{
     try {
-        let filteredProduct = await Warehouse.find(req.query).populate('products.product')
+        let filteredProduct = await Warehouse.find(req.query).populate('products.product','name description price')
         const response= filteredProduct.map(docs=>{
             return docs.products
         })
@@ -82,6 +83,15 @@ exports.searchTerm = async(req,res)=>{
     } catch (error) {
         return res.status(500).json(errorMsg.internal)
 
+        
+    }
+}
+
+exports.makeOrder = async(req,res)=>{
+    try {
+        
+    } catch (error) {
+        return res.status(500).json(errorMsg.internal)
         
     }
 }
