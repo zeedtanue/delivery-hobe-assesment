@@ -100,7 +100,7 @@ exports.makeOrder = async(req,res)=>{
             }
         });
         if(warehouse==null) return res.status(400).json('invalid id')
-        if(product.stock_quantity<body.order_quantity) return res.status(400).json('not enough product')
+        if(product.stock_quantity<body.order_quantity || product.warehouse_stock==false) return res.status(400).json('not enough product')
         let order = new Order({
             product     :   productID,
             warehouse   :   warehouseID,
