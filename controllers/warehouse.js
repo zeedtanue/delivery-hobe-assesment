@@ -1,4 +1,5 @@
 const Warehouse = require('../models/warehouse')
+const Product = require('../models/products')
 const errorMsg = require('../lib/messages').error
 const successMsg= require('../lib/messages').success
 
@@ -49,5 +50,35 @@ exports.addProducts = async(req,res)=>{
         return res.status(201).json(successMsg.product_added)
     } catch (error) {
         return res.status(500).json(errorMsg.internal)          
+    }
+}
+
+exports.noStock=async(req,res)=>{
+    try {
+        const productID= req.params.productID
+        const warehouseID=req.params.warehouseID
+        await Warehouse.updateOne(
+            {_id: warehouseID, "products.product":productID},
+            {$set:{"products.$.warehouse_stock":false}}
+        )
+        return res.status(200).json(successMsg.no_stock)
+    } catch (error) {
+        return res.status(500).json(errorMsg.internal)          
+    }
+}
+
+exports.restock=async(req,res)=>{
+    try {
+        
+        const productID= req.params.productID
+        const warehouseID=req.params.warehouseID
+        await Warehouse.updateOne(
+            {_id: warehouseID, "products.product":productID},
+            {$set:{"products.$.warehouse_stock":true, "products.$.stock_quantity":req.body.stock_quantity}}
+        )
+        return res.status(200).json(successMsg.restocked)
+        
+    } catch (error) {
+        return res.status(500).json(errorMsg.internal)             
     }
 }

@@ -109,7 +109,7 @@ exports.makeOrder = async(req,res)=>{
         })
             await order.save()
             await Warehouse.updateOne(
-                {_id: req.params.warehouseID, "products.product":productID},
+                {_id: warehouseID, "products.product":productID},
                 {$inc:{"products.$.stock_quantity":-body.order_quantity}}
             )
         return res.status(201).json(order)
