@@ -12,6 +12,8 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "moment": "^2.29.1",
-    "mongoose": "^5.13.7"
+    "mongoose": "^5.13.7",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-ui-express": "^4.1.6"
   }
 }
