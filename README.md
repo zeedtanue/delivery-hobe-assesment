@@ -44,7 +44,17 @@
     - decreases stock_quantity in warehouse stock
     - return not enough products if the order_quantity is more than stock_quantity
     - retuns with order schema
-
+- GET https://deliveryhobe.herokuapp.com/api/warehouse
+    - Returns all warehouses with info:
+      - id
+      - name
+      - area
+      - contact_info
+      - prosucts
+        - sourcig_price
+        - warehouse_stock
+        - stock_quantity
+        - product details  
 - PUT https://deliveryhobe.herokuapp.com/api/warehouse/no_stock/:warehouseID/:productID
     - Marks stock as false for the specific product in the warehouse
  
