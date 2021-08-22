@@ -24,15 +24,13 @@ db.mongo_conn.once('open', () => { logger.info('connected to mongodb') });
 // check for connection errors
 db.mongo_conn.on('error', (err) => { logger.error('mongodb connection error', err) });
 
-// // view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'jade');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/',(req,res)=>res.status(200).json('Delivery Hobe Node Js Developer Assesment'))
 app.use('/api/products', productsRoute)
 app.use('/api/users', usersRoute);
 app.use('/api/warehouse', warehouseRoute )
