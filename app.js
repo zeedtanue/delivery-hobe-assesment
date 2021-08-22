@@ -30,7 +30,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/',(req,res)=>res.status(200).json('Delivery Hobe Node Js Developer Assesment'))
 app.use('/api/products', productsRoute)
 app.use('/api/users', usersRoute);
 app.use('/api/warehouse', warehouseRoute )
