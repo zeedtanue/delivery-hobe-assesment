@@ -33,7 +33,7 @@ router.get('/', getProducts);
  *       description: name of the warehouse, try with East Warehouse
  *       in: query
  *        type:string
- *     - area: area
+ *     - name: area
  *       description: Area of the warehouse, try Mohakhali/Tejgaon
  *       in: query
  *        type:string
@@ -47,13 +47,88 @@ router.get('/', getProducts);
   //in query it can go both warehouse and area or either of them
 router.get('/filter', getFiltered)
 
-//search term by query using both name and description
-  //put ?search=termforsearch as params
-router.get('/search', searchTerm)
 
+/**
+ * @openapi
+ * /api/products/searchProduct:
+ *   get:    
+ *     description: Search products by name or description. 
+ *     parameters:
+ *     - in: query
+ *       name: search
+ *       description: Search term you want to use. get something from the product list to test
+ *        type:string
+ *        required:true
+ *     responses:
+ *       200:
+ *         description: Returns an array with all the products that matches with the search term.
+ */
+
+//search term by query using both name and description
+  //put ?search=termforsearch as query
+router.get('/searchProduct', searchTerm)
+
+/**
+ * @openapi
+ * /api/products/checkout/{:warehouseID}/{:productID}:
+ *   post:    
+ *     description: Checkout route for a customers. decrese warehouse stock 
+ *     parameters:
+ *     - name: warehouseID
+ *       description: Warehouse id of selected warehouse
+ *       in: path
+ *        type:string
+ *        required:true
+ *     - name: productID
+ *       description: product id of selected product from warehouse
+ *       in: path
+ *        type:string
+ *        required:true
+ *     responses:
+ *       200:
+ *         description: Returns an object with order details.
+ */
 
 router.post('/checkout/:warehouseID/:productID', makeOrder)
 
+
+/**
+ * @openapi
+ * /api/products/new:
+ *   post:    
+ *     description: Adding new product 
+ *     parameters:
+ *     - name: name
+ *       description: name of the product
+ *       in: path
+ *        type:string
+ *        required:true
+ *     - name: description
+ *       description: description of the product
+ *       in: path
+ *        type:string
+ *        required:true
+ *     - name: price
+ *       description: price of the product
+ *       in: path
+ *        type:number
+ *        required:true
+ *     - name: quantity
+ *       description: quantity of the product
+ *       in: path
+ *        type:number
+ *        required:true
+ *     - name: stock
+ *       description: stock status of the product
+ *       in: path
+ *        type:boolean
+ *        required:true
+ * 
+ * 
+ *     responses:
+ *       200:
+ *         description: Procuct successfully created .
+ */
 router.post('/new', postNewProduct)
 router.get('/:id', getOneProduct)
 router.put('/:id', updateProduct)

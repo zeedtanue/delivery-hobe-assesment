@@ -14,6 +14,7 @@ exports.postNewProduct= async(req,res)=>{
 
         res.status(201).json(successMsg.product_created)
     } catch (error) {
+        console.log(error)
         res.status(500).json(errorMsg.internal)
         
     }
